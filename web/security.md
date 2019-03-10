@@ -29,13 +29,17 @@ Q: Chapter9::Attacking Data Stores::What is a data store?
 A: They hold data in a structured way.
 Data is accessed by a query format or language
 Contain internal logic to help manage the data
+<!-- 1552225137938 -->
 
 Q: Chapter9::Attacking Data Stores::What is code injection?
 A: Database languages are not compiled, they use an interpreter
 Code executed in the database is a mix of the programmer's code and user input
 Here is where the hacker can craft an input that breaks out the programmer's desired context
+<!-- 1552225137942 -->
 
 Q: Chapter9::Attacking Data Stores::Login Bypass Query 1/2
 A: Database languages are not compiled, they use an interpreter
 Code executed in the database is a mix of the programmer's code and user input
 Here is where the hacker can craft an input that breaks out the programmer's desired context
+<!-- 1552225137944 -->
+

@@ -20,7 +20,7 @@ avoid modification of code you have already written
 prefer making your code extensible
 
 Q:Enterprise pattern (Specification pattern)
-pending
+A:pending
 
 Q:Liskov Substitution Principle
 A:If you have a function that takes in a base class
@@ -28,3 +28,19 @@ You should be able to use that function with its inherited
 class without any problem.
 basically `process(Square)` should also work for `process(Rectangle)`
 who inherits from Square
+
+Q:Interface Segregation Principle
+A:Its always better to split functionality
+Example: Interface IMachine that can Print, Fax, Scan
+Well this is a mistake, its better to have an IPrinter, IFaxer, IScanner interfaces
+The lesson is to always segregate, split, modularize
+
+Q:Dependency Inversion Principle (1 of 2)
+A:High Level Modules should not depend on low level modules
+Both should depend on abstractions
+Abstractions should not depend on details
+Details should depend on abstractions
+
+Q:Dependency Inversion Principle (2 of 2)
+A:Like for example have a class that depends on a low level struct
+That depends means that it takes

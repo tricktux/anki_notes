@@ -1,0 +1,24 @@
+
+@startuml
+
+class HotDrink<<abstract>> {
+	virtual prepare()
+}
+
+HotDrink <|-- Tea
+HotDrink <|-- Coffee
+
+class HotDrinkFactory<<abstract>> {
+	virtual unique_ptr<HotDrinnk> make()
+}
+
+HotDrinkFactory <|-- TeaFactory
+HotDrinkFactory <|-- CoffeeFactory
+
+class DrinkFactory {
+	unique_ptr<HotDrink> make(string name)
+}
+
+Client -- DrinkFactory : DrinkFactory::make("coffee")
+
+@enduml

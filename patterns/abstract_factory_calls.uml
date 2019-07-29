@@ -1,0 +1,12 @@
+
+@startuml
+
+Client --> DrinkFactory : Coffee *c = DrinkFactory::make("coffee")
+
+DrinkFactory --> CoffeeFactory : return CoffeeFactory::make()
+
+CoffeeFactory --> Coffee : return new Coffee()
+
+Client --> Coffee : c->prepare()
+
+@enduml

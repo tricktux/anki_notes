@@ -122,3 +122,121 @@ void func(int **var) { var = (int *) realloc(sizeof(int)); }
 
 ![Example](Screenshot_20191029-105329.jpg)
 
+## functions and raw arrays
+
+Raw arrays cannot be passed by value
+
+A function taking a `char *`, that could be a pointer to an individual char or a pointer to char array
+
+That is why is better to be specific. Example: `void foo(int A[], int size)`
+
+This is a function that takes a int array, you could write it as in *A, but that is ambiguous.
+
+You could also return a raw array:
+
+```cpp
+int [] custom_alloc(int size) {
+  return (int *) malloc (size*sizeof(int));
+}
+```
+
+## if statement with initializer
+
+You can initialize a variable in an of statement, place semi colon an evaluate.
+Example:
+```cpp
+if (auto [it, inserted] = map.insert({ "hello", 3 }); !inserted) 
+  std::cout << "hello already exists with value " << it->second << "\n";
+
+if (auto [it, inserted] = map.insert({ "foo", 4 }); !inserted)
+  std::cout << "foo already exists with value " << it->second << "\n";
+```
+
+## method chaining
+
+Useful for the builder pattern when you call a bunch of set_x methods
+
+Just: `return *this;`
+
+```cpp
+class Fbo {
+  Fbo& setType(GLenum type) {
+    _type = type;
+    return *this;
+  }
+};
+
+// then you can do:
+
+Fbo f; f.setType(GL_FLOAT).setFormat(GL_RGB).setIntFormat(GL_RGB32F_ARB).init();
+```
+
+## sizeof()
+
+`sizeof( type )`: Yields the size in bytes of the object representation of _type_.
+`sizeof expression`: Yields the size in bytes of the object representation of the type of expression, if that expression is evaluated.
+
+Returns the size of a type in bytes. Example: `sizeof(char) = 1 byte`
+
+You can use it to get the number of items in a raw array:
+```cpp
+int num_items = sizeof(array_name)/sizeof(type_of_array)
+```
+
+## std::forward
+
+If you the following functions:
+```cpp
+template<class T> f(T& t) { printf("f(T&)"); }
+template<class T> f(T&& t) { printf("f(T&&)"); } 
+```
+
+And you simply call `f(S())`, let's assume `S` is an empty class, what you will get is: `f(T&&)` printed.
+
+That is a good thing
+
+Now if we add a third function, that simply wraps `f`:
+
+```cpp
+template<class T> wrapf(T&& t) { f(t); } 
+```
+
+And you simply call `wrapf(S())` you will NOT get `f(T&&)` printed.
+What you will get is `f(T&)`
+
+In order to properly forward you have to use.... you guessed it, as such:
+```cpp
+template<class T> wrapf(T&& t) { f(std::forward<T>(t)); }
+```
+
+## std::forwarding parameter packs
+
+TODO: Bring content here
+[Read here](https://stackoverflow.com/questions/32018519/in-perfect-forwarding-what-is-the-difference-between-decltypestdforwardargs)
+
+## std::function vs template
+
+TODO: Bring content here
+[Read here](https://stackoverflow.com/questions/14677997/stdfunction-vs-template#14678298)
+
+## template syntax
+
+Precede the declaration with `template <class T>`
+
+Then everywhere you want to substitute a data type just use T
+
+Now when defining a function, for example in a cpp file do the following:
+
+```cpp
+template <class T>
+T Arithmetic<T>::add(const T& a, const T&b) { return a + b; }
+
+// Then declare an object:
+Arithmetic<int> ar;
+```
+
+## string literal
+
+- A string literal is sequence of characters surrounded by double quotes:
+  - `"Hello World!\n"`
+- Note that the null terminator is added automatically

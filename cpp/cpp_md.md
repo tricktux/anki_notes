@@ -1,15 +1,17 @@
 
 ## constexpr
 
-The expression may or may not be `const`.
 Example, let's say we have a function:
 
 ```cpp
 constexpr double square(double x)
 ```
 
-Now you can call this function with and without `const` variables.
-Basically means that the value of a function of object can be evaluated at compile time.
+- Basically means, I can or cannot be a constant. It depends on the evaluation at compile time.
+- `constexpr` functions should be simple.
+- The idea is to reuse a function's definition for both `const` and non `const` variables.
+- Before you would have had to define this function twice in order to use it with
+`const` variables.
 
 ## copy constructor
 
@@ -266,3 +268,88 @@ auto obj1 = new SomeType<OtherType>::SomeOtherType();
 auto obj2 = std::make_shared<XyzType>(args...);
 auto obj3 = std::make_unique<XyzType>(args...);
 ```
+
+## enums
+
+```cpp
+// They are ints unless you say otherwise.
+enum class Color {red, green, yellow};
+enum class Traffic_Light {yellow, green, red};
+
+Color c = Color::red;
+Traffic_Light t = Traffic_Light::red;
+```
+
+- You can also define operators and functions for an `enum class`:
+
+```cpp
+Traffic_Light& operator++(Traffic_Light& t) {
+  switch(t) {
+    case Traffic_Light::green: return t = Traffic_Light::yellow;
+    case Traffic_Light::red: return t = Traffic_Light::green;
+    case Traffic_Light::yellow: return t = Traffic_Light::red;
+  }
+}
+
+// Now you can:
+Traffic_Light next = ++light; // Assuming light = yellow it will go red
+```
+
+## a function declaration
+
+Is just it's name, like in an `hpp` file.
+
+## a function definition
+
+Is what is does, like in the `cpp` file.
+
+
+## namespaces
+
+- Its use for expressing that some declarations belong together and their namespaces shouldn't clash with that of others.
+- For example this allows you to have your own `string` implementation, as opposed to that of `std::string`.
+- They are mainly used in libraries.
+
+## RAII
+
+- The technique is called Resource Acquisition Is Initialization **(RAII)**.
+- It allows to eliminate _naked new operators_ that you then must remember to `delete`.
+- Basically if you need to use `new` it should be wrapped in a class
+- That way you allocate in constructor and deallocate automatically in the destructor.
+
+## `using`
+
+- Preferred over `typedef`
+  - Mainly because the alias declaration is compatible with templates, whereas the C style `typedef` is not.
+- Examples:
+
+```cpp
+using size_t = unsigned int;
+template<typename Value>
+using String_map = Map<string, Value>
+String_map<int> m; // m is a Map<string,int>
+```
+
+## all literals
+
+```cpp
+255, 0377, 0xff // Integers (decimal, octal, hex)
+2147483647L, 0x7fffffffl // Long (32-bit) integers
+123.0, 1.23e2 // double (real) numbers
+'a', '\141', '\x61' // Character (literal, octal, hex)
+'\n', '\\', '\'', '\"' // Newline, backslash, single quote, double quote
+"string\n" // Array of characters ending with newline and \0
+"hello" "world" // Concatenated strings
+true, false // bool constants 1 and 0
+```
+
+## extern
+
+```cpp
+extern int x = 10; // Declaration of extern
+extern int x; // Information only, declared elsewhere
+```
+
+## argv and argc
+
+

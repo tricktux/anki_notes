@@ -94,8 +94,7 @@ constexpr double square(double x) { return x*x; }
 	- All arrays starts at 0. Therefore, we have elements from v[0] to v[5].
 - Also in a declaration `*` means **pointer to**.
 	- Example: `char *p;`
-- In an expression, prefix unary `*` means **contents of** and unary `&` means **address
-of**.
+- In an expression, prefix unary `*` means **contents of** and unary `&` means **address of**.
 	- Example:
 
 ```cpp
@@ -122,8 +121,7 @@ for (auto &x : {11,22,33,44,55,66,77})
 - The types that are built from the fundamental types.
 
 ### 2.3.1 Structures
-- The **new** operator allocates memory from an area called `the free store`, also known 
-as `dynamic memory` and/or `heap`.
+- The **new** operator allocates memory from an area called `the free store`, also known as `dynamic memory` and/or `heap`.
 
 ### 2.3.2 Classes
 - A class object can be seen as a pointer to the elements of the class.
@@ -131,7 +129,6 @@ as `dynamic memory` and/or `heap`.
 ### 2.3.3 Enums
 
 ```cpp
-
 // They are ints unless you say otherwise.
 enum class Color {red, green, yellow};
 enum class Traffic_Light {yellow, green, red};
@@ -188,7 +185,7 @@ of course a bit more complex.
 - Examples are `vector`, `string`, etc. They just build on top of `built-in` types.
 - They are subdivided into different types.
 
-### 3.2.1.1 An arithmetic type
+#### 3.2.1.1 An arithmetic type
 - Like `complex`, from complex numbers.
 - Where you can do things like add, subtract, etc.
 - **Note:** Functions defined in a class are inlined by default.
@@ -201,7 +198,7 @@ object.
 - **NOTE:** This section is a good example on defining custom `operators`. Like
 `+-()*/=`, also good example of `operator==` and `operator!=`.
 
-### 3.2.1.2 A container type
+#### 3.2.1.2 A container type
 - Like `vector`.
 - A `destructor` is a mechanism to ensure that the memory allocated by the
 constructor is deallocated. Of course this is done manually. Meaning you need to do

@@ -15,8 +15,15 @@ constexpr double square(double x)
 
 ## copy constructor
 
-Gets called whenever we are constructing a new object from an existing one: `Bus local(existing_bus);`
-Which is the same as: `Bus local = existing_bus;`
+Gets called whenever:
+- initialization: `T a = b;` or `T a(b);`, where `b` is of type `T`;
+- function argument passing: `f(a);`, where a is of type `T` and `f` is void `f(T t)`;
+- function return: `return a;` inside a function such as `T f()`, where a is of type `T`, which has no move constructor. 
+
+**Note:**
+
+If no user-defined copy constructors are provided for a class type (struct, class, or union), the compiler will always declare a copy constructor as a non-explicit inline public member of its class. This implicitly-declared copy constructor has the form `T::T(const T&)`
+
 See [Copy constructors](https://en.cppreference.com/w/cpp/language/copy_constructor)
 Definition:
 ```cpp
@@ -29,7 +36,7 @@ struct A
 };
 ```
 
-## copy assignment operator
+## copy assignment operator (use)
 
 Gets called when we are updating an existing object by assigning it an existing one:
 
@@ -38,7 +45,12 @@ Bus local, another;
 local = another; // copy assignment operator called
 ```
 
+If no user-defined copy assignment operators are provided for a class type (struct, class, or union), the compiler will always declare one as an inline public member of the class. This implicitly-declared copy assignment operator has the form T& T::operator=(const T&)
+
+## copy assignment operator (forms and example)
+
 It has two main forms: `class_name & class_name :: operator= ( class_name )`, this is the typical declaration of a copy assignment operator when **copy-and-swap idiom** can be used. This idiom can be used when there is no need for **deep copy**. Meaning when no heap allocations are needed to be managed. Meaning when there are no pointers. Which you can see below in `Struct A`.
+
 **Note:** That even though `Struct B` added `string s2` inherited copy constructor takes care of the swapping
 
 The second form: `class_name & class_name :: operator= ( const class_name & )`, you can see in `Struct C`
